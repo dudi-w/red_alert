@@ -1,7 +1,7 @@
 import time
 
 
-class loopTiming:
+class LoopTiming:
     def __init__(self, updates_per_second: float) -> None:
         self._required_loop_duration = updates_per_second
         self._loop_start_time = time.time()
