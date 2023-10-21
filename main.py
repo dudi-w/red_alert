@@ -1,6 +1,6 @@
 from alarm_player import AlarmPlayer
-from loop_timing import loopTiming
-from alert_manager import alertManager
+from loop_timing import LoopTiming
+from alert_manager import AlertManager
 
 if __name__ == "__main__":
     import argparse
@@ -24,14 +24,13 @@ if __name__ == "__main__":
     # Parse the command-line arguments
     args = parser.parse_args()
 
-    alert_manager = alertManager(
+    alert_manager = AlertManager(
         location=args.location, date_threshold=args.threshold_history)
-    loop_timing = loopTiming(updates_per_second=args.updates_per_second)
+    loop_timing = LoopTiming(updates_per_second=args.updates_per_second)
     alarm = AlarmPlayer(args.file, args.alarm_duration)
 
     while True:
-        alerts = alert_manager.alerts_to_json()
-        new_alerts = alert_manager.look_for_new_alerts(alerts)
+        new_alerts = alert_manager.look_for_new_alerts()
         if new_alerts:
             for alert in new_alerts:
                 print(alert)
